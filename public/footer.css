@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    bottom: -100px;
+}
+
+.left{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1rem;
+    width: 50%;
+}
+.right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+}
+a {
+    font-size: 1rem;
+    color: white;
+}
+.item {
+    margin: 0;
+    height: 20px;
+}
+.left div {
+    margin: 10px;
+    width:auto;
+    color: white;
+}

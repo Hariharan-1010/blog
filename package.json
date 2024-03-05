@@ -1,0 +1,24 @@
+{
+  "name": "project3_blog",
+  "version": "1.0.0",
+  "description": "blog page",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hariharan-1010/blog.git"
+  },
+  "author": "Hariharan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hariharan-1010/blog/issues"
+  },
+  "homepage": "https://github.com/Hariharan-1010/blog#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.3"
+  }
+}

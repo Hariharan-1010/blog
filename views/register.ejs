@@ -1,0 +1,17 @@
+<%- include("header.ejs") %>
+<head>
+    <link rel="stylesheet" href="/register.css">
+</head>
+<body>
+    <h1>REGISTER</h1>
+    <div class="container">
+        <form id="form" action="/login" method="post">
+            <input type="name" placeholder="Enter your Name">
+            <input type="email" placeholder="Enter your Email">
+            <input type="text" placeholder="Enter new Password">
+            <input type="password" placeholder="Re-enter Password">
+            <input type="submit" value="submit">
+        </form>
+    </div>
+</body>
+<%- include("footer.ejs") %>
