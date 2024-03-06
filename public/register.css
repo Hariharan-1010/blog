@@ -33,3 +33,8 @@ input {
 input[type="submit"] {
     width: 275px;
 }
+#message {
+    color: white;
+    background-color: rgb(243, 126, 126);
+    text-align: center;
+}

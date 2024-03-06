@@ -1,0 +1,15 @@
+<section id="posts">
+    <% if(locals.users) { %>
+        <% users.forEach(user => {%>
+            <% if(user.contents) { %>
+                <% user['contents'].forEach(content => {%>
+                    <div class="post">
+                        <h5><%= user.name %></h5>
+                        <p><%= content %></p>
+                    </div>
+                <% }); %>
+            <% } %>
+        <% }); %>
+    <% } %>
+    
+</section>
