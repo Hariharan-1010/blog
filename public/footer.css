@@ -10,8 +10,8 @@ footer{
     height: 50px;
     width: 100%;
     background-color: black;
-    position: absolute;
-    bottom: -100px;
+    position: fixed;
+     bottom: 0;
 }
 
 .left{
@@ -39,4 +39,7 @@ a {
     margin: 10px;
     width:auto;
     color: white;
+}
+.right div {
+    margin: 2px 5px;
 }

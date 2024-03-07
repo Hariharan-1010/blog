@@ -20,6 +20,23 @@ app.get("/", (req, res) => {
         msg: ""
     });
 });
+app.get("/home", (req, res) => {
+    if(currentUser) currentUserName = currentUser['name'];
+    res.render("post.ejs",{
+        title: "Post"
+    });
+});
+app.get("/login", (req, res) => {
+    res.render("login.ejs",{
+        title: "Login"
+    });
+});
+app.get("/postList", (req,res)=> {
+    res.render("postList.ejs", {
+            users: users,
+            title: "PostList"
+        });
+});
 app.post("/login",(req, res) => {
     const obj = req.body;
     if(obj.pass === obj.password){
@@ -35,15 +52,11 @@ app.post("/login",(req, res) => {
     }
    
 });
-app.get("/home", (req, res) => {
-    if(currentUser) currentUserName = currentUser['name'];
-    res.render("post.ejs");
-});
 app.post("/home", (req, res) => {
      let user = getUser(users, currentUserName);
     user.contents.push(req.body.textarea);
-    res.render("postList.ejs", {
-        users: users
+    res.render("post.ejs",{
+        title: "Post"
     });
 });
 

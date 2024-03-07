@@ -13,7 +13,7 @@ nav {
     top: 0;
     background-color: black;
 }
-div {
+.header_item {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,15 +1,34 @@
-<section id="posts">
-    <% if(locals.users) { %>
-        <% users.forEach(user => {%>
-            <% if(user.contents) { %>
-                <% user['contents'].forEach(content => {%>
-                    <div class="post">
-                        <h5><%= user.name %></h5>
-                        <p><%= content %></p>
-                    </div>
-                <% }); %>
-            <% } %>
-        <% }); %>
-    <% } %>
-    
-</section>
+<%- include("header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostList</title>
+    <link rel="stylesheet" href="/postList.css">
+</head>
+<body>
+    <h1 id="postListH1">
+        POST LIST
+    </h1>
+    <section id="posts">
+        <% if(locals.users) { %>
+            <% users.forEach(user => {%>
+                <% if(user.contents) { %>
+                    <% user['contents'].forEach(content => {%>
+                        <div class="post">
+                            <h5><%= user.name %></h5>
+                            <p><%= content %></p>
+                        </div>
+                    <% }); %>
+                <% } %>
+            <% }); %>
+        <% } else {%>
+            <h5>Post List is Empty!</h5>
+        <% }%>
+
+        
+    </section>
+</body>
+</html>
+<%- include("footer.ejs") %>
