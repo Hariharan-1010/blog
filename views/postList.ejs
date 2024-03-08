@@ -16,19 +16,21 @@
             <% users.forEach(user => {%>
                 <% if(user.contents) { %>
                     <% user['contents'].forEach(content => {%>
-                        <div class="post">
-                            <h5><%= user.name %></h5>
-                            <p><%= content %></p>
-                        </div>
+                        <% if(content !== "") {%>
+                            <div class="post">
+                                <h5><%= user.name %></h5>
+                                <p><%= content %></p>
+                            </div>
+                        <%}  %>
                     <% }); %>
                 <% } %>
             <% }); %>
         <% } else {%>
             <h5>Post List is Empty!</h5>
         <% }%>
-
-        
     </section>
+
+
 </body>
 </html>
 <%- include("footer.ejs") %>
