@@ -1,4 +1,6 @@
 body {
+    position: relative;
+    top: -40px;
     margin: 0;
     border: 0;
     box-sizing: border-box;
@@ -38,4 +40,5 @@ input[type="submit"] {
     color: white;
     background-color: rgb(243, 126, 126);
     text-align: center;
+    margin-bottom: 2px;
 }

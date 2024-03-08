@@ -50,24 +50,25 @@ app.get("/postList", (req,res)=> {
 //Post for login , still work needed
 app.post("/register",(req, res) => {
     let obj = req.body;
-    if(obj.pass === obj.password){
+    if(obj.pass === obj.password && !checkForExistenceOfUser(users, obj.email)){
         formToObject(obj);
         console.log(users);
         res.render("login.ejs",{
             title: "Login",
             msg: ""
         }); 
-    } else if(obj.pass !== obj.password){
-        res.render("register.ejs", {
-            title: "Register",
-            msg: msg
-        });
     } else if(checkForExistenceOfUser(users, obj.email)){
         res.render("register.ejs", {
             title: "Register",
             msg: "You are already registerd!. Login to proceed",
         });
+    } else if(obj.pass !== obj.password){
+        res.render("register.ejs", {
+            title: "Register",
+            msg: msg
+        });
     }
+   
 });
 
 //Posting the post
@@ -76,16 +77,23 @@ app.post("/home", (req, res) => {
      console.log(`user => ${user}\n`);
      console.log(`users: ${users}, index = ${user}, that user => ${users[user]} `);
      if(user != -1 && req.body.textarea != ""){
-        users[user].contents.push(req.body.textarea);
-        res.render("post.ejs",{
-            title: "Post"
-        });
+        try {
+            users[user].contents.push(req.body.textarea);
+            res.render("post.ejs",{
+                title: "Post"
+            });
+        } catch (error) {
+            console.log(error);
+            res.render("register.ejs", {
+                title: "Register",
+                msg: "Register to post !",
+            });    
+        }
      }else {
         res.render("post.ejs",{
             title: "Post"
         });
      }
-    
 });
 
 //post for login

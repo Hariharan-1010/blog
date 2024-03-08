@@ -12,22 +12,25 @@
         POST LIST
     </h1>
     <section id="posts">
-        <% if(locals.users) { %>
-            <% users.forEach(user => {%>
-                <% if(user.contents) { %>
-                    <% user['contents'].forEach(content => {%>
-                        <% if(content !== "") {%>
-                            <div class="post">
-                                <h5><%= user.name %></h5>
-                                <p><%= content %></p>
-                            </div>
-                        <%}  %>
-                    <% }); %>
-                <% } %>
-            <% }); %>
-        <% } else {%>
-            <h5>Post List is Empty!</h5>
-        <% }%>
+        <% try { %>
+            <% if(locals.users) { %>
+                <% users.forEach(user => {%>
+                    <% if(user.contents) { %>
+                        <% user['contents'].forEach(content => {%>
+                            <% if(content !== "") {%>
+                                <div class="post">
+                                    <h5><%= user.name %></h5>
+                                    <p><%= content %></p>
+                                </div>
+                            <%}  %>
+                        <% }); %>
+                    <% } %>
+                <% }); %>
+            <% } %>
+        <%} catch (error) { %>
+            <h5>Register First!!!</h5>
+        <% } %>
+        
     </section>
 
 
