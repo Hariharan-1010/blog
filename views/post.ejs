@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <form action="/home" method="POST">
-            <textarea name="textarea" rows="20" cols="100" placeholder="Type Here..."></textarea>
+            <textarea name="textarea" rows="20" cols="100" placeholder="<%= postMsg %>"></textarea>
             <input id="postButton" type="submit" value="Post ==>">
         
         <button type="submit" formaction="/postList" formmethod="GET">PostList</button>

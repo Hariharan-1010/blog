@@ -21,9 +21,6 @@ nav {
     height: 50px;
     margin: 5px;
 }
-#logout {
-    display: none;
-}
 a{
     font-size: 1.3rem;
     text-decoration: none;

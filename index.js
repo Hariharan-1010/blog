@@ -18,13 +18,14 @@ const userLoggedIn = {
     email: "",
     pass: ""
 };
-
+let isLogged = false;
 
 //Default home Route that is register
 app.get("/", (req, res) => {
     res.render("register.ejs", {
         title: "Register",
-        msg: ""
+        msg: "",
+        key: isLogged ? "Logout" : "Login"
     });
 });
 
@@ -32,7 +33,9 @@ app.get("/", (req, res) => {
 app.get("/home", (req, res) => {
     if(currentUser) currentUserName = currentUser['name'];
     res.render("post.ejs",{
-        title: "Post"
+        title: "Post",
+        key: isLogged ? "Logout" : "Login",
+        postMsg: "Type Here ..."
     });
 });
 
@@ -40,7 +43,8 @@ app.get("/home", (req, res) => {
 app.get("/login", (req, res) => {
     res.render("login.ejs",{
         title: "Login",
-        msg: ""
+        msg: "",
+        key: isLogged ? "Logout" : "Login"
     });
 });
 
@@ -48,10 +52,23 @@ app.get("/login", (req, res) => {
 app.get("/postList", (req,res)=> {
     res.render("postList.ejs", {
             users: users,
-            title: "PostList"
+            title: "PostList",
+            key: isLogged ? "Logout" : "Login"
         });
 });
 
+//Get for logout
+app.get("/logout", (req, res) => {
+    userLoggedIn.name = "";
+    userLoggedIn.email = "";
+    userLoggedIn.pass = "";
+    isLogged = false; 
+    res.render("login.ejs",{
+        title: "Login",
+        msg: "",
+        key: isLogged ? "Logout" : "Login"
+    });
+});
 //Post for login , still work needed
 app.post("/register",(req, res) => {
     let obj = req.body;
@@ -60,17 +77,20 @@ app.post("/register",(req, res) => {
         console.log(users);
         res.render("login.ejs",{
             title: "Login",
-            msg: ""
+            msg: "",
+            key: isLogged ? "Logout" : "Login"
         }); 
     } else if(checkForExistenceOfUser(users, obj.email) && obj.pass === obj.password){
         res.render("register.ejs", {
             title: "Register",
             msg: "You are already registerd!. Login to proceed",
+            key: isLogged ? "Logout" : "Login"
         });
     } else if(obj.pass !== obj.password){
         res.render("register.ejs", {
             title: "Register",
-            msg: msg
+            msg: msg,
+            key: isLogged ? "Logout" : "Login"
         });
     }
    
@@ -83,18 +103,23 @@ app.post("/home", (req, res) => {
         try {
             users[user].contents.push(req.body.textarea);
             res.render("post.ejs",{
-                title: "Post"
+                title: "Post",
+                key: isLogged ? "Logout" : "Login",
+                postMsg: "Type Here ..."
             });
         } catch (error) {
             console.log(error);
             res.render("login.ejs",{
                 title: "Login",
-                msg: "Login/register first!"
+                msg: "Login/register first!",
+                key: isLogged ? "Logout" : "Login"
             });   
         }
      }else {
         res.render("post.ejs",{
-            title: "Post"
+            title: "Post",
+            key: isLogged ? "Logout" : "Login",
+            postMsg: "Login to post!"
         });
      }
 });
@@ -105,12 +130,14 @@ app.post("/login", (req, res) => {
     if(validateUser(users, obj.email, obj.pass)) {
         updateLogger(users.find((user) => user.email === obj.email));
         res.render("post.ejs",{
-            title: "Post"
+            title: "Post",
+            key: isLogged ? "Logout" : "Login"
         });
     } else {
         res.render("login.ejs",{
             title: "Login",
-            msg: "Username or Password is wrong else register first!"
+            msg: "Username or Password is wrong else register first!",
+            key: isLogged ? "Logout" : "Login"
         });
     }
 });
@@ -172,4 +199,5 @@ function updateLogger(user){
     userLoggedIn.name = user.name;
     userLoggedIn.email = user.email;
     userLoggedIn.pass = user.pass;
+    isLogged = true;
 }
