@@ -13,6 +13,11 @@ let currentUser;
 let currentUserName="";
 app.use(express.static(path.join(__dirname,"public")));
 app.use(bodyParser.urlencoded({extended: true}));
+const userLoggedIn = {
+    name: "",
+    email: "",
+    pass: ""
+};
 
 
 //Default home Route that is register
@@ -57,7 +62,7 @@ app.post("/register",(req, res) => {
             title: "Login",
             msg: ""
         }); 
-    } else if(checkForExistenceOfUser(users, obj.email)){
+    } else if(checkForExistenceOfUser(users, obj.email) && obj.pass === obj.password){
         res.render("register.ejs", {
             title: "Register",
             msg: "You are already registerd!. Login to proceed",
@@ -73,9 +78,7 @@ app.post("/register",(req, res) => {
 
 //Posting the post
 app.post("/home", (req, res) => {
-     let user = getUser(users, currentUserName);
-     console.log(`user => ${user}\n`);
-     console.log(`users: ${users}, index = ${user}, that user => ${users[user]} `);
+     let user = users.findIndex((user) => user.email === userLoggedIn.email);
      if(user != -1 && req.body.textarea != ""){
         try {
             users[user].contents.push(req.body.textarea);
@@ -84,10 +87,10 @@ app.post("/home", (req, res) => {
             });
         } catch (error) {
             console.log(error);
-            res.render("register.ejs", {
-                title: "Register",
-                msg: "Register to post !",
-            });    
+            res.render("login.ejs",{
+                title: "Login",
+                msg: "Login/register first!"
+            });   
         }
      }else {
         res.render("post.ejs",{
@@ -100,6 +103,7 @@ app.post("/home", (req, res) => {
 app.post("/login", (req, res) => {
     let obj = req.body;
     if(validateUser(users, obj.email, obj.pass)) {
+        updateLogger(users.find((user) => user.email === obj.email));
         res.render("post.ejs",{
             title: "Post"
         });
@@ -137,7 +141,7 @@ function getUser(arrayOfObj, name) {
                 user = i;
             }  
         };
-        console.log(`userin getUser ${user}`);
+        // console.log(`userin getUser ${user}`);
         return user;
     }
     else return "";
@@ -162,4 +166,10 @@ function validateUser(users, email, password) {
             return true;
         }
     }
+}
+
+function updateLogger(user){
+    userLoggedIn.name = user.name;
+    userLoggedIn.email = user.email;
+    userLoggedIn.pass = user.pass;
 }
